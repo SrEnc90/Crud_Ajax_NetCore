@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AjaxCrud_ASPNET_CORE.Models.TransactionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center"><i class="fa-solid fa-comments-dollar text-success"></i>Transaction History</h1>
+
+<hr />
+
+<div id="view-all">
+    @await Html.PartialAsync("_ViewAll",Model)
+</div>

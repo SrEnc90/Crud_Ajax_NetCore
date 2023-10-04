@@ -1,0 +1,103 @@
+﻿@model AjaxCrud_ASPNET_CORE.Models.TransactionModel
+
+@{
+    ViewData["Title"] = "AddOrEdit";
+    Layout = null;
+}
+
+<!--
+    Este va ha ser mi plantilla del modal, que se va a renderizar en la vista, 
+    se modificó la vista _Layout dentro de la carpeta shared
+-->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddOrEdit" asp-route-id="@Model.TransactionId" onsubmit="return jQueryAjaxPost(this);" autocomplete="off">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TransactionId" />
+
+            <!--Se ha agregado un hidden para mandar el Date xq la propiedad Date se agregó después de hacer la migración y las vistas-->
+            <input  type="hidden" asp-for="Date"/>
+
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label"></label>
+
+                <!--Agrengado estilos de bootstrap-->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">#</span>
+                    </div>
+                    <input asp-for="AccountNumber" class="form-control" />
+                </div>
+               
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="BeneficiaryName" class="control-label"></label>
+                        <input asp-for="BeneficiaryName" class="form-control" />
+                        <span asp-validation-for="BeneficiaryName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="BankName" class="control-label"></label>
+                        <input asp-for="BankName" class="form-control" />
+                        <span asp-validation-for="BankName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="SWIFTcode" class="control-label"></label>
+                        <input asp-for="SWIFTcode" class="form-control" />
+                        <span asp-validation-for="SWIFTcode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label"></label>
+                        
+                        <!--Colocando ícono de dollar en prepend-->
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text h-100">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                            <input asp-for="Amount" class="form-control" />
+                        </div>
+                        
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            @*<div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>*@
+
+            <div class="form-group my-2 d-block">
+                <input type="submit" value="Submit" class="btn btn-lg btn-primary d-block w-100 mt-3" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AjaxCrud_ASPNET_CORE.Models.TransactionModel>
+
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.SWIFTcode)
+            </th>*@
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="text-center">
+                <!--en el Url.Action(ActionRsult,Controller,"parámetros pasados al ActionResult (id=0 en el ActionResult incializamos con null xq vamos a crear una nueva transacciones))",protocolo)
+                    Colocamos la function showInPopup dentro del site.js ubicado dentro de wwwroot para que sea global
+                -->
+                <a onclick="showInPopup('@Url.Action("AddOrEdit","Transaction",null,Context.Request.Scheme)','New Transaction')" class="btn btn-success text-white">
+                    <i class="fa-regular fa-square-plus"></i>&ensp;New Transaction
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.SWIFTcode)
+                </td>*@
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="text-center">
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit","Transaction",new {id = item.TransactionId},Context.Request.Scheme)','Update Transaction')" class="btn btn-info text-white">
+                        <i class="fa-regular fa-pen-to-square"></i>&ensp;Edit
+                    </a>
+                    <!--EStamos enviando el objeto form dentro la función-->
+                    <form asp-action="Delete" asp-route-id="@item.TransactionId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </form> 
+                    @*<a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> |*@
+                    @*<a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
